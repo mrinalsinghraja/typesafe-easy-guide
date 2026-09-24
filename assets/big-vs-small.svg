@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="900" height="400" rx="20" fill="#ffffff"/>
+  <text x="450" y="44" text-anchor="middle" font-size="24" font-weight="700" fill="#1a1a2e">Two kinds of AI helpers</text>
+  <!-- Left card -->
+  <rect x="30" y="70" width="400" height="300" rx="16" fill="#fff4e6" stroke="#f08c00" stroke-width="2"/>
+  <text x="230" y="108" text-anchor="middle" font-size="20" font-weight="700" fill="#d9480f">🧑‍🏫 Big chat AI (LLM)</text>
+  <text x="230" y="134" text-anchor="middle" font-size="15" fill="#5c3d1e">"The professor who writes essays"</text>
+  <rect x="70" y="152" width="320" height="86" rx="10" fill="#ffffff" stroke="#ffc078"/>
+  <text x="84" y="176" font-size="13" fill="#666">Q: Is this message urgent?</text>
+  <text x="84" y="198" font-size="13" fill="#333">A: "Well, looking at the tone, the customer</text>
+  <text x="84" y="216" font-size="13" fill="#333">seems quite stressed, and they mention…"</text>
+  <text x="70" y="268" font-size="15" fill="#5c3d1e">🐢  Slower: writes word by word</text>
+  <text x="70" y="294" font-size="15" fill="#5c3d1e">💸  You pay for every word it writes</text>
+  <text x="70" y="320" font-size="15" fill="#5c3d1e">🧩  Your code must untangle the text</text>
+  <text x="70" y="346" font-size="15" fill="#5c3d1e">✅  Great for: writing, chatting, planning</text>
+  <!-- Right card -->
+  <rect x="470" y="70" width="400" height="300" rx="16" fill="#e6fcf5" stroke="#0ca678" stroke-width="2"/>
+  <text x="670" y="108" text-anchor="middle" font-size="20" font-weight="700" fill="#087f5b">⚡ TypeSafe Jev</text>
+  <text x="670" y="134" text-anchor="middle" font-size="15" fill="#1e4d3d">"The quick checker who ticks boxes"</text>
+  <rect x="510" y="152" width="320" height="86" rx="10" fill="#ffffff" stroke="#63e6be"/>
+  <text x="524" y="176" font-size="13" fill="#666">Q: Is this message urgent?</text>
+  <text x="524" y="206" font-size="22" font-weight="700" fill="#087f5b">0.97  ✔</text>
+  <text x="630" y="206" font-size="13" fill="#333">(97% sure: yes)</text>
+  <text x="510" y="268" font-size="15" fill="#1e4d3d">⚡  Fast: most answers in ~100 ms</text>
+  <text x="510" y="294" font-size="15" fill="#1e4d3d">🪙  Tiny input price, answers are free</text>
+  <text x="510" y="320" font-size="15" fill="#1e4d3d">🔌  Answer is ready for code to use</text>
+  <text x="510" y="346" font-size="15" fill="#1e4d3d">✅  Great for: sorting, checking, picking</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 330" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+  <rect width="900" height="330" rx="20" fill="#ffffff"/>
+  <text x="450" y="42" text-anchor="middle" font-size="24" font-weight="700" fill="#1a1a2e">Jev's 3 question types (your only 3 tools)</text>
+  <!-- Choice -->
+  <rect x="30" y="66" width="265" height="240" rx="16" fill="#edf2ff" stroke="#4c6ef5" stroke-width="2"/>
+  <text x="162" y="100" text-anchor="middle" font-size="20" font-weight="700" fill="#364fc7">🗂️ Choice</text>
+  <text x="162" y="124" text-anchor="middle" font-size="14" fill="#364fc7">"Pick ONE from this list"</text>
+  <rect x="60" y="140" width="205" height="30" rx="6" fill="#fff" stroke="#bac8ff"/><text x="74" y="160" font-size="14" fill="#555">○ billing</text>
+  <rect x="60" y="176" width="205" height="30" rx="6" fill="#4c6ef5"/><text x="74" y="196" font-size="14" fill="#fff" font-weight="700">● technical   85%</text>
+  <rect x="60" y="212" width="205" height="30" rx="6" fill="#fff" stroke="#bac8ff"/><text x="74" y="232" font-size="14" fill="#555">○ sales</text>
+  <text x="162" y="280" text-anchor="middle" font-size="13" fill="#364fc7">Use for: routing, categories</text>
+  <!-- Noul -->
+  <rect x="317" y="66" width="265" height="240" rx="16" fill="#fff0f6" stroke="#d6336c" stroke-width="2"/>
+  <text x="450" y="100" text-anchor="middle" font-size="20" font-weight="700" fill="#a61e4d">🎚️ Noul</text>
+  <text x="450" y="124" text-anchor="middle" font-size="14" fill="#a61e4d">"How likely is YES?" (0 → 1)</text>
+  <rect x="345" y="175" width="210" height="16" rx="8" fill="#ffdeeb"/>
+  <rect x="345" y="175" width="195" height="16" rx="8" fill="#d6336c"/>
+  <circle cx="540" cy="183" r="12" fill="#fff" stroke="#d6336c" stroke-width="3"/>
+  <text x="345" y="215" font-size="13" fill="#777">0 = no</text><text x="555" y="215" text-anchor="end" font-size="13" fill="#777">1 = yes</text>
+  <text x="450" y="245" text-anchor="middle" font-size="18" font-weight="700" fill="#a61e4d">urgent? 0.93</text>
+  <text x="450" y="280" text-anchor="middle" font-size="13" fill="#a61e4d">Use for: checks, flags, yes/no</text>
+  <!-- Score -->
+  <rect x="604" y="66" width="265" height="240" rx="16" fill="#fff9db" stroke="#f59f00" stroke-width="2"/>
+  <text x="736" y="100" text-anchor="middle" font-size="20" font-weight="700" fill="#e67700">📏 Score</text>
+  <text x="736" y="124" text-anchor="middle" font-size="14" fill="#e67700">"Where on this ladder?"</text>
+  <rect x="640" y="210" width="50" height="30" rx="4" fill="#ffec99"/><text x="665" y="258" text-anchor="middle" font-size="12" fill="#777">calm</text>
+  <rect x="706" y="180" width="50" height="60" rx="4" fill="#f59f00"/><text x="731" y="258" text-anchor="middle" font-size="12" fill="#777">annoyed</text>
+  <rect x="772" y="150" width="50" height="90" rx="4" fill="#ffec99"/><text x="797" y="258" text-anchor="middle" font-size="12" fill="#777">angry</text>
+  <text x="731" y="172" text-anchor="middle" font-size="16" font-weight="700" fill="#e67700">▼ 1.0</text>
+  <text x="736" y="286" text-anchor="middle" font-size="13" fill="#e67700">Use for: ranking, "how much"</text>
+</svg>

@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TypeSafe Easy Guide</title>
+<meta name="description" content="A plain-English, step-by-step guide to building cheap, fast, reliable AI apps with TypeSafe AI's Jev model.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf7; --panel:#ffffff; --ink:#1b1b24; --muted:#5d5d6e; --line:#e7e4dc;
+  --accent:#d6336c; --accent-soft:#fff0f6; --good:#2b8a3e; --good-soft:#ebfbee;
+  --bad:#c92a2a; --bad-soft:#fff5f5; --code:#f4f2ec; --warn-soft:#fff9db;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f0f14; --panel:#17171f; --ink:#ececf1; --muted:#a3a3b5; --line:#2a2a36;
+    --accent:#f06595; --accent-soft:#2a1520; --good:#51cf66; --good-soft:#12251a;
+    --bad:#ff6b6b; --bad-soft:#2a1414; --code:#1e1e28; --warn-soft:#2a2512;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f0f14; --panel:#17171f; --ink:#ececf1; --muted:#a3a3b5; --line:#2a2a36;
+  --accent:#f06595; --accent-soft:#2a1520; --good:#51cf66; --good-soft:#12251a;
+  --bad:#ff6b6b; --bad-soft:#2a1414; --code:#1e1e28; --warn-soft:#2a2512;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 Inter,system-ui,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px}
+header.hero{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+.kicker{font:600 13px/1 JetBrains Mono,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.05;margin:14px 0 18px;font-weight:800;letter-spacing:-.02em}
+.lede{font-size:20px;color:var(--muted);max-width:680px;margin:0}
+.oneline{margin-top:28px;padding:18px 22px;border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:0 12px 12px 0;font-size:18px}
+nav.toc{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.toc .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.toc a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:14px;padding:6px 12px;border-radius:999px;border:1px solid var(--line)}
+nav.toc a:hover{color:var(--ink);border-color:var(--accent)}
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+h2{font-size:30px;margin:0 0 8px;letter-spacing:-.01em}
+h2 .n{font:600 14px JetBrains Mono,monospace;color:var(--accent);display:block;margin-bottom:6px}
+h3{font-size:21px;margin:36px 0 8px}
+p.sub{color:var(--muted);margin-top:0}
+img.fig{width:100%;height:auto;border-radius:16px;border:1px solid var(--line);margin:18px 0;background:#fff}
+figure{margin:24px 0}
+figure img{width:100%;border-radius:12px;border:1px solid var(--line);display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:16px;overflow-x:auto;font:14px/1.55 JetBrains Mono,monospace}
+code{font-family:JetBrains Mono,monospace;font-size:.88em;background:var(--code);padding:1px 6px;border-radius:5px}
+pre code{background:none;padding:0;font-size:inherit}
+.mermaid{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px;margin:20px 0;text-align:center;overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.step{position:relative;padding:4px 0 28px 64px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:0;width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;font-weight:800;display:grid;place-items:center;font-size:18px}
+.step::after{content:"";position:absolute;left:21px;top:48px;bottom:4px;width:2px;background:var(--line)}
+.step:last-child::after{display:none}
+.step h3{margin:6px 0 6px}
+.note{padding:14px 18px;border-radius:12px;background:var(--warn-soft);border:1px solid var(--line);font-size:15px;margin:14px 0}
+.rules{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:24px}
+.rule{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px}
+.rule b{display:block;font-size:17px;margin-bottom:6px}
+.rule .big{font-size:28px}
+.rule p{margin:0;color:var(--muted);font-size:15px}
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-top:24px}
+.calc .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.calc label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+.calc input{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:16px Inter,sans-serif}
+.out{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:22px}
+.o{border-radius:14px;padding:16px;border:1px solid var(--line)}
+.o .t{font-size:13px;color:var(--muted)}
+.o .v{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums}
+.o .d{font-size:13px;color:var(--muted)}
+.o.bad{background:var(--bad-soft)} .o.bad .v{color:var(--bad)}
+.o.good{background:var(--good-soft)} .o.good .v{color:var(--good)}
+.o.mid{background:var(--warn-soft)}
+.bar{height:10px;border-radius:5px;background:var(--line);margin-top:10px;overflow:hidden}
+.bar i{display:block;height:100%;background:currentColor}
+footer{padding:40px 0 60px;color:var(--muted);font-size:13px}
+.theme{position:fixed;right:16px;bottom:16px;z-index:9;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;font:14px Inter,sans-serif}
+@media (max-width:600px){body{font-size:16px}.step{padding-left:56px}.lede{font-size:18px}}
+</style>
+</head>
+<body>
+<button class="theme" id="themeBtn" aria-label="Toggle theme">◐ theme</button>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">Easy-peasy guide · TypeSafe AI</div>
+  <h1>Build great AI apps that are cheap, fast & reliable</h1>
+  <p class="lede">A no-jargon, step-by-step guide to using TypeSafe's <b>Jev</b> model the smart way, so you spend pennies and get answers in about a tenth of a second.</p>
+  <div class="oneline">🧠 <b>The whole idea in one line:</b> let <b>plain code</b> do the steps, let <b>Jev</b> make the quick common-sense calls, and call a <b>big AI</b> only when you truly need writing or deep thinking.</div>
+</div></header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#idea">1 · Idea</a><a href="#tools">2 · 3 tools</a><a href="#steps">3 · First app</a>
+  <a href="#rules">4 · Golden rules</a><a href="#calc">5 · Cost calculator</a><a href="#blueprint">6 · Blueprint</a>
+  <a href="#ideas">7 · App ideas</a><a href="#mistakes">8 · Mistakes</a><a href="#cheat">9 · Cheat sheet</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="idea">
+  <h2><span class="n">01</span>The 30-second idea</h2>
+  <p>Most people use big chat AIs (ChatGPT, Claude…) for <em>everything</em>. That's like <b>hiring a professor to tick checkboxes</b>. It works, but it's slow and pricey, and the answer comes back as a paragraph your app has to untangle.</p>
+  <p><b>Jev is a different kind of AI.</b> It doesn't write. You ask short questions, and it answers with a <b>number or a pick from a list</b>, ready for your code.</p>
+  <img class="fig" src="assets/big-vs-small.svg" alt="Big chat AI writes essays slowly; Jev ticks boxes fast">
+  <div class="mermaid">
+flowchart LR
+  A["📄 Your data (state)"] --> C{{"⚡ Jev · ~100 ms"}}
+  B["❓ Your questions"] --> C
+  C --> D["🔢 Typed answers + probabilities"]
+  D --> E["💻 Your code decides"]
+  </div>
+  <figure><img src="assets/screens/docs.png" alt="TypeSafe documentation introduction page" loading="lazy"><figcaption>The official docs at docs.typesafe.ai. Their diagram shows the same flow: state + questions → one request → typed answers → your code.</figcaption></figure>
+</section>
+
+<section id="tools">
+  <h2><span class="n">02</span>The 3 tools you'll use</h2>
+  <p class="sub">Every Jev question is one of these three types. That's all there is to learn.</p>
+  <img class="fig" src="assets/three-tools.svg" alt="Choice, Noul and Score question types">
+  <div class="tablewrap"><table>
+    <tr><th>Tool</th><th>You ask</th><th>You get</th><th>Example</th></tr>
+    <tr><td>🗂️ <b>Choice</b></td><td>"Pick ONE from this list"</td><td>the pick + % per option + confidence</td><td>Which team handles this ticket?</td></tr>
+    <tr><td>🎚️ <b>Noul</b></td><td>"Is this true?"</td><td>probability 0 (no) → 1 (yes)</td><td>Does the customer want a refund?</td></tr>
+    <tr><td>📏 <b>Score</b></td><td>"Where on this ladder?"</td><td>position on your levels (e.g. 1.4) + confidence</td><td>How angry is the customer?</td></tr>
+  </table></div>
+  <div class="note">💬 A Noul of <b>0.5</b> means "can't tell", not "medium". For "how much", use <b>Score</b>.</div>
+</section>
+
+<section id="steps">
+  <h2><span class="n">03</span>Step by step: your first app</h2>
+  <p class="sub">We'll build a <b>support-ticket sorter</b>: it reads a customer message and decides the team, the urgency, and whether to flag a refund.</p>
+  <div class="mermaid">
+flowchart LR
+  S1["1 Sign up"] --> S2["2 Playground"] --> S3["3 API key"] --> S4["4 Install"] --> S5["5 One call"] --> S6["6 Code decides"] --> S7["7 Test & tune"] --> S8["🚀 Ship"]
+  </div>
+  <ol class="steps">
+    <li class="step"><h3>Sign up</h3>
+      <p>Go to <a href="https://console.typesafe.ai/">console.typesafe.ai</a> and continue with Google or email.</p>
+      <figure><img src="assets/screens/console.png" alt="TypeSafe console sign-in page" loading="lazy"><figcaption>The TypeSafe console sign-in screen.</figcaption></figure>
+    </li>
+    <li class="step"><h3>Play first, with no code</h3>
+      <p>Open the <a href="https://console.typesafe.ai/playground">Playground</a>. Paste a message as the <b>state</b>:</p>
+      <pre style="white-space:pre-wrap"><code>Hi, I've been trying to connect my Stripe account for 3 days and the integration keeps failing. I'm losing sales. Please help ASAP.</code></pre>
+      <p>Add a <b>noul</b> question: <code>Does this message express urgency?</code>. Then add a Choice and a Score and watch all the answers come back together.</p>
+      <div class="note">🎯 Reword your questions here until the answers look right. It's the cheapest place to experiment.</div>
+    </li>
+    <li class="step"><h3>Get an API key</h3>
+      <p>Dashboard → <a href="https://console.typesafe.ai/keys">Keys</a>. Then:</p>
+      <pre><code>export TYPESAFE_API_KEY="paste-your-key-here"</code></pre>
+      <div class="note">🔒 Never put the key in website or mobile frontend code. Call TypeSafe from your server.</div>
+    </li>
+    <li class="step"><h3>Install</h3>
+      <pre><code># Python 3.10+
+pip install typesafe-sdk
+
+# JavaScript / TypeScript (Node 20+)
+npm install @typesafe-ai/sdk</code></pre>
+    </li>
+    <li class="step"><h3>Ask everything in ONE call</h3>
+<pre><code>from typesafe_sdk import Choice, Noul, Score, TypeSafeClient
+
+with TypeSafeClient() as client:
+    r = client.system_one(
+        state={"ticket": "I was charged twice. Please fix this ASAP."},
+        questions={
+            "team": Choice(
+                instructions="Which team should handle this ticket?",
+                criteria={
+                    "billing": "Payment or subscription issues",
+                    "technical": "Bugs or integration problems",
+                    "other": "None of the above",
+                },
+            ),
+            "urgent": Noul(instructions="The message conveys urgency."),
+            "frustration": Score(
+                instructions="How frustrated does the customer appear?",
+                criteria=["Calm", "Frustrated but civil", "Very angry"],
+            ),
+        },
+        model="jev-latest",
+    )</code></pre>
+      <p>A real sample answer from the docs:</p>
+<pre><code>"department":  { "choice": "technical", "confidence": 0.78,
+                 "probabilities": { "technical": 0.85, "billing": 0.15, "sales": 0.0 } }
+"frustration": { "score": 1.0, "confidence": 1.0 }
+"is_urgent":   { "noul": 1.0 }</code></pre>
+    </li>
+    <li class="step"><h3>Let code make the decision</h3>
+<pre><code>team = r.choices["team"]
+queue = team.choice if team.confidence &gt;= 0.5 else "human-review"
+priority = "P1" if r.nouls["urgent"].noul &gt; 0.8 else "P2"</code></pre>
+      <p>The AI gives <b>evidence</b> (numbers), and your code sets the <b>rules</b>. You can change a rule any time without paying for new AI calls. Full example: <a href="https://github.com/mrinalsinghraja/typesafe-easy-guide/blob/main/examples/support_triage.py">examples/support_triage.py</a>.</p>
+    </li>
+    <li class="step"><h3>Test, tune, ship</h3>
+      <p>Run 20–50 <b>real</b> messages. Where it's wrong, reword the question or make the option descriptions clearer. Pick thresholds from <b>your</b> results, not guesses.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="rules">
+  <h2><span class="n">04</span>The 7 golden rules for low cost + high speed</h2>
+  <h3>Rule 1: 📦 One envelope, many questions (the biggest saving)</h3>
+  <p>Your data (the "state") is usually the expensive part. 13 questions in 13 calls means paying for the data 13 times. <b>Put them all in one call</b> and you pay once.</p>
+  <img class="fig" src="assets/batching.svg" alt="13 separate calls cost $0.00609; one batched call costs $0.00050">
+  <figure><img src="assets/screens/parallel.png" alt="TypeSafe Parallel questions cookbook" loading="lazy"><figcaption>The proof: TypeSafe's "Parallel questions" cookbook measured 12.2× cheaper and 10× faster, with the same answers.</figcaption></figure>
+
+  <h3>Rule 2: 💻 If plain code can do it, don't use AI</h3>
+  <div class="mermaid">
+flowchart LR
+  Q{"Can a simple rule or lookup do it?"} -->|Yes| C["💻 Plain code · $0"]
+  Q -->|No| Q2{"Is the answer a pick, yes/no, or a level?"}
+  Q2 -->|Yes| J["⚡ Jev · tiny cost"]
+  Q2 -->|"No, needs writing / deep reasoning"| L["🧑‍🏫 Big LLM · highest cost"]
+  </div>
+
+  <h3>Rule 4: 🪜 Cheap first, expensive only if needed</h3>
+  <img class="fig" src="assets/cascade.svg" alt="Cheap model does the work, Jev checks it, only doubtful cases go to the big model">
+
+  <div class="rules">
+    <div class="rule"><span class="big">📦</span><b>1 · Batch questions</b><p>All questions about the same data go in one call.</p></div>
+    <div class="rule"><span class="big">💻</span><b>2 · Code first</b><p>Math, dates, lookups, rules cost $0. Use AI only for understanding.</p></div>
+    <div class="rule"><span class="big">👉</span><b>3 · Pick, don't write</b><p>Code finds candidates (every date in an email), and Jev picks the right one. It's cheaper and can't invent values.</p></div>
+    <div class="rule"><span class="big">🪜</span><b>4 · Cheap → check → escalate</b><p>A cheap model does the work, Jev checks it, and only doubtful cases go to the big model.</p></div>
+    <div class="rule"><span class="big">✂️</span><b>5 · Send only what's needed</b><p>Named fields like <code>{"ticket":…,"policy":…}</code>, not your whole database.</p></div>
+    <div class="rule"><span class="big">💾</span><b>6 · Score once, reuse</b><p>Save raw numbers. New weights or filters later need no new AI calls.</p></div>
+    <div class="rule"><span class="big">🚦</span><b>7 · Confidence = traffic light</b><p>🟢 act · 🟡 act & log · 🔴 human or bigger AI. Expensive help only on hard cases.</p></div>
+  </div>
+</section>
+
+<section id="calc">
+  <h2><span class="n">05</span>Try it: cost calculator</h2>
+  <p class="sub">Change the numbers and see why batching and Jev matter. Defaults reproduce TypeSafe's GDPR cookbook (≈11k-token document, 13 questions).</p>
+  <div class="calc">
+    <div class="grid">
+      <div><label for="doc">Document size (tokens)</label><input id="doc" type="number" min="0" value="11100"></div>
+      <div><label for="q">Questions per document</label><input id="q" type="number" min="1" value="13"></div>
+      <div><label for="qt">Tokens per question</label><input id="qt" type="number" min="1" value="55"></div>
+      <div><label for="n">Documents per day</label><input id="n" type="number" min="1" value="1000"></div>
+    </div>
+    <div class="out" id="out"></div>
+    <p style="font-size:12px;color:var(--muted);margin:16px 0 0">Estimate only. Jev: $0.042 / 1M input tokens, output free (jev-1.12 rate in TypeSafe's Sept 2026 cookbook). "Big LLM": $5 / 1M input + $30 / 1M output (the gpt-5.5 rate from the same cookbook), all questions in one prompt, ~30 output tokens per answer. Check current prices before planning a budget.</p>
+  </div>
+</section>
+
+<section id="blueprint">
+  <h2><span class="n">06</span>The "optimal" app blueprint</h2>
+  <div class="mermaid">
+flowchart TD
+  U["👤 User / incoming data"] --> P["💻 Code: clean, look up, find candidates"]
+  P --> J["⚡ ONE Jev call: route + checks + scores"]
+  J --> R["💻 Code: apply rules & thresholds"]
+  R -->|most cases| OK["✅ Done: fast & cheap"]
+  R -->|needs writing| G["🧑‍🏫 Big LLM writes (only here)"]
+  R -->|unsure| H["🙋 Human review"]
+  G --> V["⚡ Jev double-checks (optional)"] --> OK
+  </div>
+  <div class="tablewrap"><table>
+    <tr><th>Layer</th><th>Job</th><th>Cost</th></tr>
+    <tr><td>💻 Code</td><td>steps, rules, math, lookups</td><td>free</td></tr>
+    <tr><td>⚡ Jev</td><td>understanding: pick / yes-no / level</td><td>tiny · ~100 ms</td></tr>
+    <tr><td>🧑‍🏫 Big LLM</td><td>writing & deep reasoning</td><td>highest, so call it rarely</td></tr>
+    <tr><td>🙋 Human</td><td>truly unsure cases</td><td>slowest, so call them rarely</td></tr>
+  </table></div>
+</section>
+
+<section id="ideas">
+  <h2><span class="n">07</span>Real app ideas</h2>
+  <div class="tablewrap"><table>
+    <tr><th>App</th><th>What Jev decides</th><th>Tool</th></tr>
+    <tr><td>📨 Smart inbox</td><td>folder, urgent?, spam?</td><td>Choice + Noul</td></tr>
+    <tr><td>🛍️ Review analyzer</td><td>sentiment level; mentions price / quality / delivery?</td><td>Score + Noul per topic</td></tr>
+    <tr><td>🔍 Better search</td><td>how relevant each result is</td><td>Score per result</td></tr>
+    <tr><td>🤖 Voice / chat commands</td><td>which action + its settings</td><td>Choice (function calling)</td></tr>
+    <tr><td>📑 Invoice / form reader</td><td>right value among candidates code found</td><td>Choice</td></tr>
+    <tr><td>✅ AI fact-checker</td><td>does this source support this sentence?</td><td>Noul</td></tr>
+    <tr><td>🧑‍💼 Resume screener</td><td>fit per skill; code weights them</td><td>Score per skill</td></tr>
+  </table></div>
+  <p>Ready-made recipes: <a href="https://docs.typesafe.ai/">docs.typesafe.ai</a> → Cookbooks.</p>
+</section>
+
+<section id="mistakes">
+  <h2><span class="n">08</span>Mistakes to avoid</h2>
+  <div class="tablewrap"><table>
+    <tr><th>❌ Don't</th><th>✅ Do</th></tr>
+    <tr><td>One huge vague question ("Is this good?")</td><td>Small clear ones ("Is it polite?", "On-topic?")</td></tr>
+    <tr><td>One call per question</td><td>Batch them all in one call</td></tr>
+    <tr><td>Treat Noul 0.5 as "medium"</td><td>0.5 = can't tell. Use Score for "how much"</td></tr>
+    <tr><td>Forget a "none of these" option</td><td>Add <code>other</code> / <code>none</code></td></tr>
+    <tr><td>API key in frontend code</td><td>Call TypeSafe from your server</td></tr>
+    <tr><td>Copy thresholds from examples</td><td>Tune on your own real data</td></tr>
+    <tr><td>Big LLM for sorting / checking</td><td>Jev; keep the big LLM for writing</td></tr>
+  </table></div>
+</section>
+
+<section id="cheat">
+  <h2><span class="n">09</span>Cheat sheet</h2>
+<pre><code>CODE  does steps & rules        → $0
+JEV   makes quick judgments     → tiny $, ~100 ms
+LLM   writes / reasons deeply   → $$$, use rarely
+
+1 call, many questions    → pay for your data once
+Pick, don't generate      → cheaper + no made-up values
+Cheap → check → escalate  → big-model quality, less $
+Save raw scores           → change rules for free
+Low confidence            → human / bigger model</code></pre>
+  <p>🔗 <a href="https://docs.typesafe.ai">Docs</a> · <a href="https://console.typesafe.ai">Console & Playground</a> · <a href="https://docs.typesafe.ai/cookbooks/parallel_questions">Batching proof</a> · <a href="https://docs.typesafe.ai/cookbooks/sde_cascade">Cascade recipe</a> · <a href="https://github.com/mrinalsinghraja/typesafe-easy-guide">This guide on GitHub</a></p>
+</section>
+
+</main>
+<footer><div class="wrap">Unofficial community guide by <a href="https://github.com/mrinalsinghraja">@mrinalsinghraja</a>. Not affiliated with TypeSafe AI. Screenshots show docs.typesafe.ai and console.typesafe.ai as of Sept 2026. Prices and figures come from TypeSafe's public cookbooks and may change.</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  try{var s=localStorage.getItem('theme'); if(s) root.setAttribute('data-theme',s);}catch(e){}
+  btn.onclick=function(){
+    var dark=root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+    var t=dark?'light':'dark'; root.setAttribute('data-theme',t);
+    try{localStorage.setItem('theme',t);}catch(e){}
+  };
+  var JEV=0.042e-6, LIN=5e-6, LOUT=30e-6, OUTPER=30;
+  function money(x){return x<0.01?'$'+x.toFixed(5):x<100?'$'+x.toFixed(2):'$'+Math.round(x).toLocaleString();}
+  function calc(){
+    var d=+doc.value||0, q=Math.max(1,+document.getElementById('q').value||1), qt=+document.getElementById('qt').value||0, n=Math.max(1,+document.getElementById('n').value||1);
+    var sep=q*(d+qt)*JEV, bat=(d+q*qt)*JEV, llm=(d+q*qt)*LIN+q*OUTPER*LOUT;
+    var max=Math.max(sep,bat,llm);
+    function card(cls,t,v,desc,color){return '<div class="o '+cls+'"><div class="t">'+t+'</div><div class="v">'+money(v)+'</div><div class="d">per doc · '+money(v*n*30)+' / month</div><div class="d">'+desc+'</div><div class="bar" style="color:'+color+'"><i style="width:'+Math.max(1,v/max*100)+'%"></i></div></div>';}
+    out.innerHTML=
+      card('bad','🧑‍🏫 Big LLM, one prompt',llm,'slower, and you must parse text','var(--bad)')+
+      card('mid','⚡ Jev, one call per question',sep,q+' round trips','#e67700')+
+      card('good','⚡ Jev, ALL questions in one call',bat,(sep/bat).toFixed(1)+'× cheaper than one-by-one · '+(llm/bat).toFixed(0)+'× cheaper than big LLM','var(--good)');
+  }
+  var doc=document.getElementById('doc'), out=document.getElementById('out');
+  document.querySelectorAll('.calc input').forEach(function(i){i.addEventListener('input',calc);});
+  calc();
+})();
+</script>
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = document.documentElement.getAttribute('data-theme')==='dark' || (!document.documentElement.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default', flowchart: { htmlLabels: true, curve: 'basis' } });
+// Render each chart with its own stable id so their styles never collide.
+const blocks = [...document.querySelectorAll('.mermaid')];
+for (const [i, el] of blocks.entries()) {
+  try { const { svg } = await mermaid.render('chart-' + i, el.textContent.trim()); el.innerHTML = svg; }
+  catch (e) { console.error('mermaid chart', i, e); }
+}
+</script>
+</body>
+</html>
